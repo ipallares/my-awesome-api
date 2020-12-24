@@ -108,4 +108,15 @@ class Task
 
         return $this;
     }
+
+    public function toArray(): array
+    {
+        return [
+            'id' => $this->getId(),
+            'name' => $this->getName(),
+            'price' => $this->getPrice(),
+            'projectId' => $this->getProject()->getId(),
+            'workerId' => $this->getWorker()->getId(),
+        ];
+    }
 }
