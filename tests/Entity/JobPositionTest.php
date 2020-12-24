@@ -3,32 +3,32 @@
 namespace App\Tests\Entity;
 
 use App\DataFixtures\JobPositionFixture;
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use App\Entity\JobPosition;
+use App\Tests\AbstractWebTestCase;
+use Tightenco\Collect\Support\Collection;
 
-class JobPositionTest extends WebTestCase
+class JobPositionTest extends AbstractWebTestCase
 {
-    /**
-     * @var JobPositionFixture
-     */
-    private $fixture;
-
-    public function setUp()
-    {
-        $client = static::createClient();
-        $container = $client->getContainer();
-        $doctrine = $container->get('doctrine');
-        $entityManager = $doctrine->getManager();
-
-        $this->fixture = new JobPositionFixture();
-        $this->fixture->load($entityManager);
-    }
-
     public function testToArray()
     {
-        $juniorDeveloper = $this->fixture->getReference(JobPositionFixture::JUNIOR_DEVELOPER);
+        /** @var JobPosition $juniorDeveloper */
+        $juniorDeveloper = $this
+            ->myFixtures[JobPositionFixture::class]
+            ->getReference(JobPositionFixture::JUNIOR_DEVELOPER);
+
         $juniorDeveloperToArray = $juniorDeveloper->toArray();
 
-        $this->assertEquals('Junior Developer', $juniorDeveloperToArray['name']);
-        $this->assertEquals(40, $juniorDeveloperToArray['pricePerHour']);
+        $this->assertEquals($juniorDeveloper->getName(), $juniorDeveloperToArray['name']);
+        $this->assertEquals(
+            $juniorDeveloper->getPricePerHour(),
+            $juniorDeveloperToArray['pricePerHour']
+        );
+    }
+
+    protected function getRequiredFixturesFqdn(): Collection
+    {
+        return new Collection([
+              JobPositionFixture::class
+        ]);
     }
 }

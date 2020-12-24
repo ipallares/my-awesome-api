@@ -2,36 +2,37 @@
 
 namespace App\Tests\Entity;
 
-use App\DataFixtures\TaskFixture;
-use App\DataFixtures\WorkerFixture;
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use App\DataFixtures\EmployeeTaskFixture;
+use App\Entity\Worker;
+use App\Tests\AbstractWebTestCase;
+use Tightenco\Collect\Support\Collection;
 
-class WorkerTest extends WebTestCase
+class WorkerTest extends AbstractWebTestCase
 {
-    /**
-     * @var WorkerFixture
-     */
-    private $fixture;
-
-    public function setUp()
-    {
-        $client = static::createClient();
-        $container = $client->getContainer();
-        $doctrine = $container->get('doctrine');
-        $entityManager = $doctrine->getManager();
-
-        $this->fixture = $container->get(WorkerFixture::class);
-        $this->fixture->load($entityManager);
-    }
-
     public function testToArray()
     {
-        $johnDoe = $this->fixture->getReference(WorkerFixture::JOHN_DOE);
+        /** @var Worker $johnDoe */
+        $johnDoe = $this
+            ->myFixtures[EmployeeTaskFixture::class]
+            ->getReference(EmployeeTaskFixture::JOHN_DOE_REF);
+
         $jobPosition = $johnDoe->getJobPosition();
+
         $johnDoeToArray = $johnDoe->toArray();
 
-        $this->assertEquals('John Doe', $johnDoeToArray['name']);
+        $this->assertEquals($johnDoe->getName(), $johnDoeToArray['name']);
+        $this->assertEquals($johnDoe->getId(), $johnDoeToArray['id']);
+        $this->assertEquals(
+            $johnDoe->getTasks()->count(),
+            count($johnDoeToArray['taskIds'])
+        );
         $this->assertEquals($jobPosition->getId(), $johnDoeToArray['jobPosition']);
-        $this->assertEmpty($johnDoeToArray['taskIds']);
+    }
+
+    protected function getRequiredFixturesFqdn(): Collection
+    {
+        return new Collection([
+            EmployeeTaskFixture::class
+        ]);
     }
 }
