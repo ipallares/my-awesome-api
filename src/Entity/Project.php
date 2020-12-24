@@ -97,4 +97,18 @@ class Project
 
         return $this;
     }
+
+    public function toArray(): array
+    {
+        return [
+            'id' => $this->getId(),
+            'name' => $this->getName(),
+            'budget' => $this->getBudget(),
+            'taskIds' => $this->getTasks()->map(
+                function(Task $task) {
+                    return $task->getId();
+                }
+            )
+        ];
+    }
 }

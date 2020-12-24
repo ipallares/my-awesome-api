@@ -98,4 +98,18 @@ class Worker
 
         return $this;
     }
+
+    public function toArray(): array
+    {
+        return [
+            'id' => $this->getId(),
+            'name' => $this->getName(),
+            'jobPosition' => $this->getJobPosition()->getId(),
+            'taskIds' => $this->getTasks()->map(
+                function(Task $task) {
+                    return $task->getId();
+                }
+            )
+        ];
+    }
 }
