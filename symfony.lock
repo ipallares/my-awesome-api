@@ -301,6 +301,9 @@
     "symfony/yaml": {
         "version": "v5.2.1"
     },
+    "tightenco/collect": {
+        "version": "v8.19.0"
+    },
     "webimpress/safe-writer": {
         "version": "2.1.0"
     }
