@@ -25,7 +25,7 @@ class JobPositionTest extends AbstractWebTestCase
         );
     }
 
-    protected function getRequiredFixturesFqdn(): Collection
+    protected function getRequiredFixturesFQDN(): Collection
     {
         return new Collection([
               JobPositionFixture::class

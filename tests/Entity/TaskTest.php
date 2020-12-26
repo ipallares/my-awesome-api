@@ -30,7 +30,7 @@ class TaskTest extends AbstractWebTestCase
         );
     }
 
-    protected function getRequiredFixturesFqdn(): Collection
+    protected function getRequiredFixturesFQDN(): Collection
     {
         return new Collection([
             EmployeeTaskFixture::class

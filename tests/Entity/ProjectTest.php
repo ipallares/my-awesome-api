@@ -16,6 +16,7 @@ class ProjectTest extends AbstractWebTestCase
         $myProject = $this
             ->myFixtures[ProjectFixture::class]
             ->getReference(ProjectFixture::MY_PROJECT);
+
         $myProjectToArray = $myProject->toArray();
 
         $this->assertEquals($myProject->getName(), $myProjectToArray['name']);
@@ -26,7 +27,7 @@ class ProjectTest extends AbstractWebTestCase
     /**
      * @return Collection<int, FixtureInterface>
      */
-    protected function getRequiredFixturesFqdn(): Collection
+    protected function getRequiredFixturesFQDN(): Collection
     {
         return new Collection([
             ProjectFixture::class

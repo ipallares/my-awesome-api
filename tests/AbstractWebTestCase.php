@@ -24,7 +24,7 @@ abstract class AbstractWebTestCase extends WebTestCase
         $entityManager = $doctrine->getManager();
 
         $this->myFixtures = new Collection();
-        $requiredFixturesFqdn = $this->getRequiredFixturesFqdn();
+        $requiredFixturesFqdn = $this->getRequiredFixturesFQDN();
         $requiredFixturesFqdn->each(
             function($fixtureFqdn) use ($container, $entityManager){
                 $fixture = $container->get($fixtureFqdn);
@@ -37,5 +37,5 @@ abstract class AbstractWebTestCase extends WebTestCase
     /**
      * @return Collection<int, FixtureInterface>
      */
-    abstract protected function getRequiredFixturesFqdn(): Collection;
+    abstract protected function getRequiredFixturesFQDN(): Collection;
 }

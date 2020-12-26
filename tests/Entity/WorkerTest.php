@@ -29,7 +29,7 @@ class WorkerTest extends AbstractWebTestCase
         $this->assertEquals($jobPosition->getId(), $johnDoeToArray['jobPosition']);
     }
 
-    protected function getRequiredFixturesFqdn(): Collection
+    protected function getRequiredFixturesFQDN(): Collection
     {
         return new Collection([
             EmployeeTaskFixture::class
