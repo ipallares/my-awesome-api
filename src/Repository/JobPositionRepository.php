@@ -12,7 +12,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method JobPosition[]    findAll()
  * @method JobPosition[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class JobPositionRepository extends ServiceEntityRepository
+class JobPositionRepository extends MyRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
