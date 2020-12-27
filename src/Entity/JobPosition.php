@@ -6,6 +6,7 @@ use App\Repository\JobPositionRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Faker\Provider\Uuid;
 
 /**
  * @ORM\Entity(repositoryClass=JobPositionRepository::class)
@@ -35,10 +36,11 @@ class JobPosition
 
     public function __construct()
     {
+        $this->id = Uuid::uuid();
         $this->workers = new ArrayCollection();
     }
 
-    public function getId(): ?int
+    public function getId(): ?string
     {
         return $this->id;
     }

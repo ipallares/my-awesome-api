@@ -36,10 +36,11 @@ class Project
 
     public function __construct()
     {
+        $this->id = Uuid::uuid();
         $this->tasks = new ArrayCollection();
     }
 
-    public function getId(): ?int
+    public function getId(): ?string
     {
         return $this->id;
     }
@@ -98,15 +99,7 @@ class Project
         return $this;
     }
 
-    /**
-     * @param string $id
-     */
-    public function setId(string $id): void
-    {
-        $this->id = $id;
-    }
-
-        public function toArray(): array
+    public function toArray(): array
     {
         return [
             'id' => $this->getId(),
