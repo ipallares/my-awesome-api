@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 
 class MyRepository extends ServiceEntityRepository
 {
@@ -25,5 +26,27 @@ class MyRepository extends ServiceEntityRepository
     {
         $this->getEntityManager()->persist($entity);
         $this->getEntityManager()->flush();
+    }
+
+    /**
+     * @param object $entity
+     *
+     * @throws ORMException
+     * @throws OptimisticLockException
+     */
+    public function remove(object $entity): void
+    {
+        $this->getEntityManager()->remove($entity);
+        $this->getEntityManager()->flush();
+    }
+
+    public function findWithCertainty(string $id): object
+    {
+        $object = $this->find($id);
+        if (null === $object) {
+            throw new ResourceNotFoundException();
+        }
+
+        return $object;
     }
 }
