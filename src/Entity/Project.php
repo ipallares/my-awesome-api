@@ -6,6 +6,7 @@ use App\Repository\ProjectRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Faker\Provider\Uuid;
 
 /**
  * @ORM\Entity(repositoryClass=ProjectRepository::class)
@@ -14,8 +15,7 @@ class Project
 {
     /**
      * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=36)
      */
     private $id;
 
@@ -98,7 +98,15 @@ class Project
         return $this;
     }
 
-    public function toArray(): array
+    /**
+     * @param string $id
+     */
+    public function setId(string $id): void
+    {
+        $this->id = $id;
+    }
+
+        public function toArray(): array
     {
         return [
             'id' => $this->getId(),
